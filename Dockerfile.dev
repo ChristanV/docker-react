@@ -1,0 +1,31 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]
+
+#docker build -f Dockerfile-dev .
+
+#docker run -it -p 3000:3000 CONTAINER_ID
+#react app exits immediatly with docker run above command
+
+#Volume is setting reference from the container files to files to local folder
+
+#pwd present workind dir
+#docker run -p 8080:300 -v /app/node_modules -v $(pwd):/app {imageId}
+# without : this folder set in stone don't map
+
+#docker run -it -p 3000:3000 -v /app/node_modules -v ${PWD}:/app -e CHOKIDAR_USEPOLLING=true CONTAINER_ID
+
+#winpty docker run -it -p 3000:3000 -v /app/node_modules -v "/$(PWD)":/app CONTAINER_ID
+
+# To run test container docker run -it 05241fa349 npm run test
+
+#applies to dev/test/prod with volumes
+#Option 1 : attach to exisitng container with it (re-use) docker exec -t {id} npm run test
+#Option 2 : Volume mapping for test as with dev
